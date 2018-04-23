@@ -40,6 +40,7 @@ export async function render<T>(options: AfterRenderProps<T>) {
   } = options as any;
   const Doc = Document || DefaultDoc;
   const context = {};
+  
   const renderPage = async (fn = modPageFn) => {
 
     // By default, we keep ReactDOMServer synchronous renderToString function
@@ -57,6 +58,7 @@ export async function render<T>(options: AfterRenderProps<T>) {
     return { helmet, ...renderedContent }
   };
 
+  // load initial data from correct component
   const { match = {}, data } = await loadInitialProps(
     routes,
     url.parse(req.url).pathname as any,

@@ -10,7 +10,7 @@ export async function loadInitialProps(
     const match = matchPath(pathname, route);
     if (match && route.component && (route.component as any).getInitialProps) {
       promises.push(
-        (route.component as any).load
+        (route.component as any).load // AsyncRouteComponent instance
           ? (route.component as any)
               .load() // load it as well
               .then(() =>

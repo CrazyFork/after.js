@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { loadInitialProps } from './loadInitialProps';
 
+// this file load static route config file into a JSX one
 class Afterparty extends React.Component<any, any> {
   prefetcherCache: any;
   constructor(props: any) {
@@ -14,6 +15,7 @@ class Afterparty extends React.Component<any, any> {
   }
 
   // only runs clizzient
+  // this lifecycle callback only be triggered at client side
   componentWillReceiveProps(nextProps: any, nextState: any) {
     const navigated = nextProps.location !== this.props.location;
     if (navigated) {
@@ -24,6 +26,7 @@ class Afterparty extends React.Component<any, any> {
         data: undefined, // unless you want to keep it
       });
       const { data, match, routes, history, location, ...rest } = nextProps;
+      // reload initial props in client side, 
       loadInitialProps(this.props.routes, nextProps.location.pathname, {
         location: nextProps.location,
         history: nextProps.history,
@@ -39,6 +42,7 @@ class Afterparty extends React.Component<any, any> {
     }
   }
 
+  // I think this method is for server side only.
   prefetch = (pathname: string) => {
     loadInitialProps(this.props.routes, pathname, {
       history: this.props.history,
@@ -79,4 +83,6 @@ class Afterparty extends React.Component<any, any> {
   }
 }
 
+// withRouter will pass updated match, location, and history props to the wrapped component
+//  whenever it renders.
 export const After = (withRouter as any)(Afterparty);

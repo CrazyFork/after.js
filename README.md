@@ -1,3 +1,53 @@
+
+# 
+
+* 要看懂 Document.ts 需要先看懂 react-helmet.
+* 核心的文件就是 `render.tsx` 中定义的 `render` 方法, 这个方法最终负责如何从服务端渲染出字符串出来.
+
+* `After.tsx` 中定义了如何服务端&客户端从 `getInitialProps` 方法中获得初始数据, 完成数据的同步.
+
+* 所有的 Component 都会有一个 prefetch 方法, 会将所有请求都缓存在一个 global cache 中.
+
+
+* todo: 剩下的问题就是如何组织 client 和 server 端的文件夹了, 以及服务端如何处理 client 端经过 webpack require 处理的资源. 看下 [Razzle's](https://github.com/jaredpalmer/razzle)  这个项目
+
+
+## methods
+
+* getInitialProps(options)-> {html, ...rest}
+```
+- assets: {clinet:{js : string, css: string}}, 会在 Doucment.ts 中使用
+- data: obj, 所有该组件的数据,
+- renderPage: func, 会从`render.ts`中传递过去, 
+```
+
+* renderPage
+```
+async(fn?:function)->{helmet, html}
+```
+
+
+
+
+
+##
+
+```
+src
+├── After.tsx               // 用于通过静态配置, 动态生成 react-router route 声明
+├── Document.tsx            // 
+├── asyncComponent.tsx      // code splitting 的util
+├── ensureReady.ts          // ensureReady 函数保证所有 dynamic import() 组件都加在完, 然后还会保证 script 中的 initial data 被load
+├── index.tsx
+├── loadInitialProps.tsx    // make sure dynamic component & initial data been fetched
+├── render.tsx
+└── utils.ts
+```
+
+
+
+
+
 ![repo-banner](https://user-images.githubusercontent.com/4060187/34948491-454de294-f9db-11e7-8fc5-86985ba05be8.png)
 
 # After.js

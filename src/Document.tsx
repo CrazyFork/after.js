@@ -1,7 +1,9 @@
 import * as React from 'react';
 import serialize from 'serialize-javascript';
 
+// how to use this file
 export class Document extends React.Component<any, any> {
+  // :todo, where props comes in
   static async getInitialProps({ assets, data, renderPage }: any) {
     const page = await renderPage();
     return { assets, data, ...page };
