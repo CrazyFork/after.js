@@ -1,5 +1,5 @@
 import express from 'express';
-import { render } from '@jaredpalmer/after';
+import { render } from '../../../build';
 import routes from './routes';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
@@ -22,7 +22,8 @@ server
       });
       res.send(html);
     } catch (error) {
-      res.json(error);
+      console.error(error);
+      res.json({ message: error.message, stack: error.stack });
     }
   });
 

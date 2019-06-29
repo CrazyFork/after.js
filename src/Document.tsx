@@ -1,11 +1,12 @@
 import * as React from 'react';
 import serialize from 'serialize-javascript';
+import { DocumentProps } from './types';
 
-// how to use this file
-export class Document extends React.Component<any, any> {
-  // :todo, where props comes in
-  static async getInitialProps({ assets, data, renderPage }: any) {
+  
+export class Document extends React.Component<DocumentProps> {
+  static async getInitialProps({ assets, data, renderPage }: DocumentProps) { // :todo, where props comes in
     const page = await renderPage();
+
     return { assets, data, ...page };
   }
 
@@ -25,19 +26,12 @@ export class Document extends React.Component<any, any> {
           {helmet.title.toComponent()}
           {helmet.meta.toComponent()}
           {helmet.link.toComponent()}
-          {assets.client.css && (
-            <link rel="stylesheet" href={assets.client.css} />
-          )}
+          {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
         </head>
         <body {...bodyAttrs}>
           <AfterRoot />
           <AfterData data={data} />
-          <script
-            type="text/javascript"
-            src={assets.client.js}
-            defer
-            crossOrigin="anonymous"
-          />
+          <script type="text/javascript" src={assets.client.js} defer crossOrigin="anonymous" />
         </body>
       </html>
     );
@@ -54,7 +48,7 @@ export function AfterData({ data }: any) {
       id="server-app-state"
       type="application/json"
       dangerouslySetInnerHTML={{
-        __html: serialize({ ...data }).replace(/<\/script>/g, '%3C/script%3E'),
+        __html: serialize({ ...data })
       }}
     />
   );

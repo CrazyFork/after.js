@@ -52,6 +52,8 @@ src
 
 # After.js
 
+[![Known Vulnerabilities](https://snyk.io/test/github/jaredpalmer/after.js/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jaredpalmer/after.js?targetFile=package.json)
+
 If [Next.js](https://github.com/zeit/next.js) and [React Router](https://github.com/reacttraining/react-router) had a baby...
 
 ## Project Goals / Philosophy / Requirements
@@ -140,7 +142,7 @@ export default About;
 Within `getInitialProps`, you have access to all you need to fetch data on both
 the client and the server:
 
-* `req?: Request`: (server-only) A Express.js request object
+* `req?: Request`: (server-only) An Express.js request object
 * `res?: Request`: (server-only) An Express.js response object
 * `match`: React Router 4's `match` object.
 * `history`: React Router 4's `history` object.
@@ -189,7 +191,7 @@ export default routes;
 ```js
 // ./src/Detail.js
 import React from 'react';
-import NavLink from 'react-router-dom/NavLink';
+import { Route } from 'react-router-dom';
 
 class Detail extends React.Component {
   // Notice that this will be called for
@@ -361,6 +363,7 @@ export default class Document extends React.Component {
       </html>
     );
   }
+}
 ```
 
 To use your custom `<Document>`, pass it to the `Document` option of your After.js `render` function.
@@ -384,7 +387,7 @@ server
       const html = await render({
         req,
         res,
-        document: MyDocument
+        document: MyDocument,
         routes,
         assets,
       });
