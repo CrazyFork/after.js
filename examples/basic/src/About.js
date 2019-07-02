@@ -5,7 +5,6 @@ class About extends React.Component {
     return { stuff: 'more stuffs' };
   }
   render() {
-    console.log(this.props);
     return this.props.stuff ? <div>about</div> : null;
   }
 }
